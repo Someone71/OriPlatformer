@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Tag"
+config/name="OriPlatformer"
 run/main_scene="uid://ctfi2aomrvk38"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"

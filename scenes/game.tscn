@@ -12,6 +12,60 @@
 [ext_resource type="Texture2D" uid="uid://cqtip03mptyd8" path="res://Assets/Sprites/taggedsadboy.png" id="8_kvuet"]
 [ext_resource type="Texture2D" uid="uid://dp2vdlbcwb57f" path="res://Assets/Sprites/taggedxiaoboy.png" id="10_trtic"]
 [ext_resource type="Texture2D" uid="uid://b41s13637tgny" path="res://Assets/Sprites/taggeddefinitelyacyclopsboy.png" id="12_ir15t"]
+[ext_resource type="FontFile" uid="uid://h7wn6ai5u1sj" path="res://Assets/oldbitz-font/OldbitzDemo-8OmwJ.ttf" id="13_bhx41"]
+[ext_resource type="Script" uid="uid://bgm4e5g1itxwg" path="res://Scripts/game_time_label.gd" id="13_kvuet"]
+[ext_resource type="Texture2D" uid="uid://bwb61hiaabsv0" path="res://Assets/Background/TagBackgroundBubbles.png" id="14_ir15t"]
+[ext_resource type="Texture2D" uid="uid://b1jbybtkii16j" path="res://Assets/Background/TagBackgroundBase.png" id="15_ca42v"]
+[ext_resource type="Texture2D" uid="uid://bodn3pqwpkq8g" path="res://Assets/Art/Logo.png" id="16_1kice"]
+[ext_resource type="Texture2D" uid="uid://doeh7dsxe4cpp" path="res://Assets/Art/StartButton.png" id="18_37s47"]
+[ext_resource type="Texture2D" uid="uid://od6liigsov2t" path="res://Assets/Art/StartButtonHovered.png" id="19_bt5mj"]
+[ext_resource type="Texture2D" uid="uid://c1bn1khbpuhj7" path="res://Assets/Art/SettingsCog.png" id="20_1kice"]
+[ext_resource type="Script" uid="uid://usn1o33rv5qh" path="res://Scripts/start_button.gd" id="20_e1j6l"]
+[ext_resource type="Texture2D" uid="uid://xyd6qqew1efb" path="res://Assets/Art/Player1JoinBox.png" id="21_bt5mj"]
+[ext_resource type="Texture2D" uid="uid://cq4rtckk2ulxd" path="res://Assets/Art/Player2JoinBox.png" id="22_e1j6l"]
+[ext_resource type="Texture2D" uid="uid://cgph7qtkfmvmd" path="res://Assets/Art/Player3_4JoinBox.png" id="23_pl11u"]
+[ext_resource type="Script" uid="uid://b2uoxnuayt0ld" path="res://Scripts/settings_button.gd" id="23_suyxu"]
+[ext_resource type="Texture2D" uid="uid://pds0tghgf86m" path="res://Assets/Art/ToggleButtonHovered.png" id="24_js0lu"]
+[ext_resource type="Texture2D" uid="uid://cgjhnxh617tgo" path="res://Assets/Art/ToggleButton.png" id="24_pl11u"]
+[ext_resource type="Script" uid="uid://dj8o1xnnmlqej" path="res://Scripts/join_panel.gd" id="24_qnb83"]
+[ext_resource type="Texture2D" uid="uid://di6wdvcaskyde" path="res://Assets/Art/Arrow.png" id="25_bhx41"]
+[ext_resource type="Script" uid="uid://geuismalaj7m" path="res://Scripts/blink_toggle_button.gd" id="26_02fa5"]
+[ext_resource type="Texture2D" uid="uid://dvwjoor01sacw" path="res://Assets/Art/ToggleButtonColor.png" id="26_gxtfn"]
+[ext_resource type="Script" uid="uid://bcgqejsqqpmx3" path="res://Scripts/left_arrow.gd" id="26_qouja"]
+[ext_resource type="Script" uid="uid://djwit1us26oob" path="res://Scripts/time_setting_label.gd" id="26_sgl2t"]
+[ext_resource type="FontFile" uid="uid://cimknnp0w8uh8" path="res://Assets/oldbitz-font/OldbitzDemo-BLl98.otf" id="26_twgab"]
+[ext_resource type="Texture2D" uid="uid://dltopcef44ucs" path="res://Assets/Art/ArrowHovered.png" id="26_v2yb1"]
+[ext_resource type="Script" uid="uid://bax6ri4x0fonf" path="res://Scripts/right_arrow.gd" id="28_wljb1"]
+
+[sub_resource type="GDScript" id="GDScript_gxtfn"]
+resource_name = "BlackgroundMoving"
+script/source = "extends Sprite2D
+
+var xDir = 1
+var yDir = 1
+var xSpeed = randf_range(0.01, 0.05)
+var ySpeed = randf_range(0.01, 0.05)
+	
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	#print(xSpeed)
+	#print(ySpeed)
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	position.x += xSpeed * xDir * delta * 150
+	position.y += ySpeed * yDir * delta * 150
+	if(position.x < 544 or position.x > 1760):
+		xDir *= -1
+	if(position.y < -992 or position.y > -304):
+		yDir *= -1
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sww3w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qnb83"]
 
 [node name="Game" type="Node2D" unique_id=355319260]
 script = ExtResource("1_iywne")
@@ -34,7 +88,7 @@ editor_draw_drag_margin = true
 script = ExtResource("3_lbhrr")
 
 [node name="Player1" parent="." unique_id=416001974 instance=ExtResource("1_uwrxv")]
-position = Vector2(1235, -396.00003)
+position = Vector2(268, -1056)
 up_action = "upP1"
 down_action = "downP1"
 left_action = "leftP1"
@@ -45,18 +99,18 @@ power_action = "powerP1"
 
 [node name="RedNotIt" type="Sprite2D" parent="Player1" unique_id=850834896]
 z_index = 1
-position = Vector2(4.7683716e-07, 6.1035156e-05)
-scale = Vector2(0.9600009, 0.96000135)
+position = Vector2(1.5616417e-05, 5.859394e-05)
+scale = Vector2(0.96, 0.96)
 texture = ExtResource("5_gee14")
 
 [node name="RedIt" type="Sprite2D" parent="Player1" unique_id=306179050]
 texture_filter = 1
-position = Vector2(0, 4.0690105e-05)
-scale = Vector2(0.9600003, 0.95999926)
+position = Vector2(-4.2915344e-06, 6.145482e-05)
+scale = Vector2(0.96000016, 0.95999837)
 texture = ExtResource("6_dinhu")
 
 [node name="Player2" parent="." unique_id=937101296 instance=ExtResource("1_uwrxv")]
-position = Vector2(1023, -413.00003)
+position = Vector2(2057, -1219)
 up_action = "upP2"
 down_action = "downP2"
 left_action = "leftP2"
@@ -79,7 +133,7 @@ scale = Vector2(0.95999855, 0.95999986)
 texture = ExtResource("8_kvuet")
 
 [node name="Player3" parent="." unique_id=431291503 instance=ExtResource("1_uwrxv")]
-position = Vector2(150, -68)
+position = Vector2(2057, -70)
 up_action = "upP3"
 down_action = "downP3"
 left_action = "leftP3"
@@ -102,7 +156,7 @@ scale = Vector2(0.9600001, 0.96000004)
 texture = ExtResource("10_trtic")
 
 [node name="Player4" parent="." unique_id=901927822 instance=ExtResource("1_uwrxv")]
-position = Vector2(64, -68)
+position = Vector2(268, -70)
 up_action = "upP4"
 down_action = "downP4"
 left_action = "leftP4"
@@ -113,7 +167,6 @@ power_action = "powerP4"
 player_id = 3
 
 [node name="YellowNotIt" type="Sprite2D" parent="Player4" unique_id=1022962458]
-visible = false
 texture_filter = 1
 position = Vector2(-2.3841858e-07, -2.3841858e-07)
 scale = Vector2(0.96000004, 0.96000004)
@@ -131,3 +184,250 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="GameTimeLabel" type="Label" parent="." unique_id=909963113]
+offset_left = 39.0
+offset_top = -1253.0
+offset_right = 99.0
+offset_bottom = -1184.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("13_bhx41")
+theme_override_font_sizes/font_size = 50
+script = ExtResource("13_kvuet")
+
+[node name="GameTimer" type="Timer" parent="GameTimeLabel" unique_id=1546922326]
+
+[node name="TagBackgroundBubbles" type="Sprite2D" parent="." unique_id=1827322746]
+z_index = -19
+position = Vector2(1640.0001, -680)
+scale = Vector2(1.5262346, 1.5262346)
+texture = ExtResource("14_ir15t")
+script = SubResource("GDScript_gxtfn")
+
+[node name="TagBackgroundBase" type="Sprite2D" parent="." unique_id=1745362605]
+z_index = -20
+position = Vector2(1152, -648)
+texture = ExtResource("15_ca42v")
+
+[node name="Menu" type="Control" parent="." unique_id=649620467]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Logo" type="TextureRect" parent="Menu" unique_id=1867707191]
+z_index = 11
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+offset_left = 551.0
+offset_top = -1248.0
+offset_right = 1787.9181
+offset_bottom = -933.0
+texture = ExtResource("16_1kice")
+
+[node name="StartButton" type="TextureButton" parent="Menu" unique_id=1444979644]
+z_index = 20
+texture_filter = 1
+layout_mode = 0
+offset_left = 940.0
+offset_top = -387.0
+offset_right = 1460.0
+offset_bottom = -165.0
+texture_normal = ExtResource("18_37s47")
+texture_hover = ExtResource("19_bt5mj")
+stretch_mode = 0
+script = ExtResource("20_e1j6l")
+
+[node name="SettingsButton" type="TextureButton" parent="Menu" unique_id=1694062910]
+z_index = 15
+texture_filter = 1
+layout_mode = 0
+offset_left = 1928.0
+offset_top = -815.0
+offset_right = 2174.998
+offset_bottom = -568.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+toggle_mode = true
+button_pressed = true
+action_mode = 0
+texture_normal = ExtResource("20_1kice")
+stretch_mode = 0
+script = ExtResource("23_suyxu")
+
+[node name="SettingsPanel" type="Panel" parent="Menu" unique_id=1580094408]
+layout_mode = 0
+offset_left = 1551.0
+offset_top = -236.0
+offset_right = 1825.0
+offset_bottom = 6.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sww3w")
+
+[node name="BlinkToggleLabel" type="Label" parent="Menu/SettingsPanel" unique_id=1979495358]
+layout_mode = 0
+offset_left = 33.0
+offset_top = -268.0
+offset_right = 407.0
+offset_bottom = -208.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("26_twgab")
+theme_override_font_sizes/font_size = 50
+text = "BL1NK TOGGLE"
+
+[node name="BlinkToggleButton" type="TextureButton" parent="Menu/SettingsPanel" unique_id=1390497294]
+z_index = 11
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.142
+anchor_top = -0.12200001
+anchor_right = -0.142
+anchor_bottom = -0.12200001
+offset_left = 460.90802
+offset_top = -257.476
+offset_right = 615.9081
+offset_bottom = -172.476
+action_mode = 0
+texture_normal = ExtResource("24_pl11u")
+texture_hover = ExtResource("24_js0lu")
+stretch_mode = 0
+script = ExtResource("26_02fa5")
+
+[node name="BlinkToggle" type="Sprite2D" parent="Menu/SettingsPanel/BlinkToggleButton" unique_id=848562722]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(105, 42.5)
+scale = Vector2(5.0000043, 5.0000005)
+texture = ExtResource("26_gxtfn")
+
+[node name="TimeLabel" type="Label" parent="Menu/SettingsPanel" unique_id=1546997484]
+layout_mode = 0
+offset_left = 231.0
+offset_top = -164.0
+offset_right = 384.0
+offset_bottom = -104.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("13_bhx41")
+theme_override_font_sizes/font_size = 50
+text = "T1ME"
+
+[node name="LeftArrow" type="TextureButton" parent="Menu/SettingsPanel" unique_id=1210041930]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 398.0
+offset_top = -191.0
+offset_right = 457.0
+offset_bottom = -94.454544
+action_mode = 0
+texture_normal = ExtResource("25_bhx41")
+texture_hover = ExtResource("26_v2yb1")
+stretch_mode = 0
+flip_h = true
+script = ExtResource("26_qouja")
+
+[node name="TimeSettingLabel" type="Label" parent="Menu/SettingsPanel" unique_id=565535121]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 465.0
+offset_top = -160.0
+offset_right = 539.0
+offset_bottom = -112.0
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("13_bhx41")
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("26_sgl2t")
+
+[node name="RightArrow" type="TextureButton" parent="Menu/SettingsPanel" unique_id=1123211710]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 543.0
+offset_top = -187.99998
+offset_right = 602.0
+offset_bottom = -91.45453
+texture_normal = ExtResource("25_bhx41")
+texture_hover = ExtResource("26_v2yb1")
+stretch_mode = 0
+script = ExtResource("28_wljb1")
+
+[node name="JoinPanel" type="Panel" parent="Menu" unique_id=1273861039]
+texture_filter = 1
+layout_mode = 0
+offset_left = 570.0
+offset_top = -834.0
+offset_right = 747.0
+offset_bottom = -657.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qnb83")
+script = ExtResource("24_qnb83")
+
+[node name="P1Join" type="TextureRect" parent="Menu/JoinPanel" unique_id=1154590295]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 57.0
+offset_top = -12.0
+offset_right = 317.0
+offset_bottom = 248.0
+texture = ExtResource("21_bt5mj")
+
+[node name="AngyBoy" type="Sprite2D" parent="Menu/JoinPanel/P1Join" unique_id=222931224]
+z_index = 20
+position = Vector2(130.00003, 130.00002)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_gee14")
+
+[node name="P2Join" type="TextureRect" parent="Menu/JoinPanel" unique_id=299458731]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 346.0
+offset_top = -10.0
+offset_right = 606.0
+offset_bottom = 250.0
+texture = ExtResource("22_e1j6l")
+
+[node name="SadBoy" type="Sprite2D" parent="Menu/JoinPanel/P2Join" unique_id=267162845]
+position = Vector2(130.00003, 130.00002)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("6_0tnpc")
+
+[node name="P3Join" type="TextureRect" parent="Menu/JoinPanel" unique_id=1258489899]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 636.0
+offset_top = -10.0
+offset_right = 896.0
+offset_bottom = 250.0
+texture = ExtResource("23_pl11u")
+
+[node name="XiaoBoy" type="Sprite2D" parent="Menu/JoinPanel/P3Join" unique_id=358675752]
+position = Vector2(130.00003, 130.00002)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("7_vtaks")
+
+[node name="P4Join" type="TextureRect" parent="Menu/JoinPanel" unique_id=1514938090]
+z_index = 11
+texture_filter = 1
+layout_mode = 0
+offset_left = 926.0
+offset_top = -10.0
+offset_right = 1186.0
+offset_bottom = 250.0
+texture = ExtResource("23_pl11u")
+
+[node name="DefinitelyACyclopsBoy" type="Sprite2D" parent="Menu/JoinPanel/P4Join" unique_id=371970851]
+position = Vector2(129.99997, 130.00002)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("8_kvpfn")
+
+[connection signal="timeout" from="GameTimeLabel/GameTimer" to="GameTimeLabel" method="_on_game_timer_timeout"]
+[connection signal="pressed" from="Menu/SettingsButton" to="Menu/SettingsButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/SettingsPanel/BlinkToggleButton" to="Menu/StartButton" method="_on_blink_toggle_button_pressed"]
+[connection signal="pressed" from="Menu/SettingsPanel/BlinkToggleButton" to="Menu/SettingsPanel/BlinkToggleButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/SettingsPanel/LeftArrow" to="Menu/SettingsPanel/LeftArrow" method="_on_pressed"]
+[connection signal="pressed" from="Menu/SettingsPanel/RightArrow" to="Menu/SettingsPanel/RightArrow" method="_on_pressed"]

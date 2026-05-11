@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://ctfi2aomrvk38"]
+
+[ext_resource type="Script" uid="uid://blhdsyajwdlrx" path="res://Scripts/game.gd" id="1_iywne"]
+[ext_resource type="PackedScene" uid="uid://dmmfo66qrupv7" path="res://scenes/map.tscn" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://btt6tuilvdn51" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://c5awggs1arx06" path="res://Scripts/camera_2d.gd" id="3_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://b4inppnj7djlo" path="res://Assets/Sprites/angyboy.png" id="5_gee14"]
+[ext_resource type="Texture2D" uid="uid://co308dtsoxb31" path="res://Assets/Sprites/sadboy.png" id="6_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bayq7mxbtdtct" path="res://Assets/Sprites/taggedangyboy.png" id="6_dinhu"]
+[ext_resource type="Texture2D" uid="uid://bex2hbim1euqk" path="res://Assets/Sprites/xiaoboy.png" id="7_vtaks"]
+[ext_resource type="Texture2D" uid="uid://b533u4cl3orix" path="res://Assets/Sprites/definitelyacyclopsboy.png" id="8_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://cqtip03mptyd8" path="res://Assets/Sprites/taggedsadboy.png" id="8_kvuet"]
+[ext_resource type="Texture2D" uid="uid://dp2vdlbcwb57f" path="res://Assets/Sprites/taggedxiaoboy.png" id="10_trtic"]
+[ext_resource type="Texture2D" uid="uid://b41s13637tgny" path="res://Assets/Sprites/taggeddefinitelyacyclopsboy.png" id="12_ir15t"]
+[ext_resource type="Script" uid="uid://bgm4e5g1itxwg" path="res://Scripts/game_time_label.gd" id="13_kvuet"]
+[ext_resource type="Texture2D" uid="uid://bwb61hiaabsv0" path="res://Assets/Blackground/TagBackgroundBubbles.png" id="14_ir15t"]
+[ext_resource type="Texture2D" uid="uid://b1jbybtkii16j" path="res://Assets/Blackground/TagBackgroundBase.png" id="15_ca42v"]
+[ext_resource type="Texture2D" uid="uid://bodn3pqwpkq8g" path="res://Assets/Art/Logo.png" id="16_1kice"]
+[ext_resource type="Texture2D" uid="uid://doeh7dsxe4cpp" path="res://Assets/Art/StartButton.png" id="18_37s47"]
+[ext_resource type="Texture2D" uid="uid://od6liigsov2t" path="res://Assets/Art/StartButtonHovered.png" id="19_bt5mj"]
+[ext_resource type="Script" uid="uid://b2uoxnuayt0ld" path="res://Scripts/settings_button.gd" id="20_1kice"]
+[ext_resource type="Script" uid="uid://usn1o33rv5qh" path="res://Scripts/texture_button.gd" id="20_e1j6l"]
+
+[node name="Game" type="Node2D" unique_id=355319260]
+script = ExtResource("1_iywne")
+
+[node name="TileMapLayer" parent="." unique_id=1526308851 instance=ExtResource("1_lbhrr")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=505430278]
+position = Vector2(1152, -648)
+limit_left = 0
+limit_top = -1292
+limit_right = 2302
+limit_bottom = 0
+limit_smoothed = true
+position_smoothing_speed = 1.0
+drag_left_margin = 0.75
+drag_top_margin = 0.75
+drag_right_margin = 0.75
+drag_bottom_margin = 0.75
+editor_draw_drag_margin = true
+script = ExtResource("3_lbhrr")
+
+[node name="Player1" parent="." unique_id=416001974 instance=ExtResource("1_uwrxv")]
+position = Vector2(268, -1056)
+up_action = "upP1"
+down_action = "downP1"
+left_action = "leftP1"
+right_action = "rightP1"
+jump_action = "jumpP1"
+dash_action = "dashP1"
+power_action = "powerP1"
+
+[node name="RedNotIt" type="Sprite2D" parent="Player1" unique_id=850834896]
+z_index = 1
+position = Vector2(1.5616417e-05, 5.859394e-05)
+scale = Vector2(0.96, 0.96)
+texture = ExtResource("5_gee14")
+
+[node name="RedIt" type="Sprite2D" parent="Player1" unique_id=306179050]
+visible = false
+texture_filter = 1
+position = Vector2(-4.2915344e-06, 6.145482e-05)
+scale = Vector2(0.96000016, 0.95999837)
+texture = ExtResource("6_dinhu")
+
+[node name="Player2" parent="." unique_id=937101296 instance=ExtResource("1_uwrxv")]
+position = Vector2(2057, -1219)
+up_action = "upP2"
+down_action = "downP2"
+left_action = "leftP2"
+right_action = "rightP2"
+jump_action = "jumpP2"
+dash_action = "dashP2"
+power_action = "powerP2"
+player_id = 1
+
+[node name="BlueNotIt" type="Sprite2D" parent="Player2" unique_id=190004258]
+texture_filter = 1
+position = Vector2(-6.4074993e-07, -1.4573336e-05)
+scale = Vector2(0.9599984, 0.9600002)
+texture = ExtResource("6_0tnpc")
+
+[node name="BlueIt" type="Sprite2D" parent="Player2" unique_id=105732764]
+texture_filter = 1
+position = Vector2(-7.7843666e-05, 5.6147575e-05)
+scale = Vector2(0.95999855, 0.95999986)
+texture = ExtResource("8_kvuet")
+
+[node name="Player3" parent="." unique_id=431291503 instance=ExtResource("1_uwrxv")]
+position = Vector2(2017, -81)
+up_action = "upP3"
+down_action = "downP3"
+left_action = "leftP3"
+right_action = "rightP3"
+jump_action = "jumpP3"
+dash_action = "dashP3"
+power_action = "powerP3"
+player_id = 2
+
+[node name="GreenNotIt" type="Sprite2D" parent="Player3" unique_id=707334584]
+texture_filter = 1
+position = Vector2(-6.7055225e-06, -3.3825636e-06)
+scale = Vector2(0.95999986, 0.96)
+texture = ExtResource("7_vtaks")
+
+[node name="GreenIt" type="Sprite2D" parent="Player3" unique_id=956892172]
+texture_filter = 1
+position = Vector2(-8.106232e-06, -2.3841858e-07)
+scale = Vector2(0.9600001, 0.96000004)
+texture = ExtResource("10_trtic")
+
+[node name="Player4" parent="." unique_id=901927822 instance=ExtResource("1_uwrxv")]
+position = Vector2(250.00002, -63.000004)
+up_action = "upP4"
+down_action = "downP4"
+left_action = "leftP4"
+right_action = "rightP4"
+jump_action = "jumpP4"
+dash_action = "dashP4"
+power_action = "powerP4"
+player_id = 3
+
+[node name="YellowNotIt" type="Sprite2D" parent="Player4" unique_id=1022962458]
+texture_filter = 1
+position = Vector2(-2.3841858e-07, -2.3841858e-07)
+scale = Vector2(0.96000004, 0.96000004)
+texture = ExtResource("8_kvpfn")
+
+[node name="YellowIt" type="Sprite2D" parent="Player4" unique_id=1853468562]
+texture_filter = 1
+position = Vector2(-2.3841858e-07, -2.3841858e-07)
+scale = Vector2(0.96000004, 0.96000004)
+texture = ExtResource("12_ir15t")
+
+[node name="Control" type="Control" parent="." unique_id=1106797246]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameTimeLabel" type="Label" parent="." unique_id=909963113]
+offset_left = 39.0
+offset_top = -1253.0
+offset_right = 99.0
+offset_bottom = -1184.0
+theme_override_font_sizes/font_size = 50
+script = ExtResource("13_kvuet")
+
+[node name="GameTimer" type="Timer" parent="GameTimeLabel" unique_id=1546922326]
+
+[node name="TagBackgroundBubbles" type="Sprite2D" parent="." unique_id=1827322746]
+z_index = -19
+position = Vector2(1152, -648)
+texture = ExtResource("14_ir15t")
+
+[node name="TagBackgroundBase" type="Sprite2D" parent="." unique_id=1745362605]
+z_index = -20
+position = Vector2(1152, -648)
+texture = ExtResource("15_ca42v")
+
+[node name="Menu" type="Control" parent="." unique_id=649620467]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Logo" type="TextureRect" parent="Menu" unique_id=1867707191]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+offset_left = 550.0
+offset_top = -1224.0
+offset_right = 1754.8002
+offset_bottom = -722.0
+texture = ExtResource("16_1kice")
+
+[node name="StartButton" type="TextureButton" parent="Menu" unique_id=1444979644]
+layout_mode = 0
+offset_left = 977.0
+offset_top = -633.0
+offset_right = 1497.0
+offset_bottom = -411.0
+texture_normal = ExtResource("18_37s47")
+texture_hover = ExtResource("19_bt5mj")
+script = ExtResource("20_e1j6l")
+
+[node name="SettingsButton" type="TextureButton" parent="Menu" unique_id=1694062910]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("20_1kice")
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu/SettingsButton" unique_id=1710050290]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BlinkToggleButton" type="TextureButton" parent="Menu/SettingsButton/PanelContainer" unique_id=1390497294]
+layout_mode = 2
+
+[node name="LeftArrow" type="TextureButton" parent="Menu/SettingsButton/PanelContainer" unique_id=1210041930]
+layout_mode = 2
+
+[node name="TimeSettingLabel" type="Label" parent="Menu/SettingsButton/PanelContainer" unique_id=565535121]
+layout_mode = 2
+
+[node name="RightArrow" type="TextureButton" parent="Menu/SettingsButton/PanelContainer" unique_id=1123211710]
+layout_mode = 2
+
+[connection signal="timeout" from="GameTimeLabel/GameTimer" to="GameTimeLabel" method="_on_game_timer_timeout"]

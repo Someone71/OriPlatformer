@@ -1,11 +1,16 @@
 extends CharacterBody2D
-
+#e
 const SPEED = 400.0
 const JUMP_VELOCITY = -800.0
 var speedLimitY = 800
 var negSpeedLimitY = -800
 var speedLimitX = 800
 var negSpeedLimitX = -800
+
+var inAir = true
+var animationSegment = 0
+var blinking = false
+var blinkAnimationSegment = 0
 
 # Keybind variables
 @export var up_action: String
@@ -33,18 +38,12 @@ var dashTimer = 0.0
 var dashDir = Vector2.ZERO
 var dashCD = 0.0
 
-
-var timeSlowCD = 0
-var timeSlowDuration = 0;
-
-var swapCD = 0
-var closest;
-
 var wallBounceSpeedTimer = 0.35
 var waveDashChainTimer = 0
 var waveDashChainCounter = 0
 var isWaveDashing = false
 var blinkCD = 0
+var blinkAnimCD
 
 # Wall jump/bounce speed variable
 var prevX = 0
@@ -53,30 +52,27 @@ var prevX = 0
 var coyoteTime = 0.1
 var wallBounceCoyoteTime = 0.15
 var blink = false
-var swap = false
-var timeSlow = false 
-var invis = false
 var game; 
 func _ready():
-	game = get_parent()
 	powers()
-	if game:
-		is_it = (player_id == game.starting_tagger)
-	if is_it:
-		tag_cooldown_timer = tag_cooldown_time
-	else:
-		tag_cooldown_timer = 0.0
-	update_color()
+	#game = get_parent()
+	#if game:
+		#is_it = (player_id == game.starting_tagger)
+	#if is_it:
+		#tag_cooldown_timer = tag_cooldown_time
+	#else:
+		#tag_cooldown_timer = 0.0
+	#update_color()
   
 func powers():
 	if player_id == 0:
 		blink = true 
 	if player_id == 1:
-		swap = true
+		blink = true
 	if player_id == 2:
-		timeSlow = true
+		blink = true
 	if player_id == 3:
-		invis = true
+		blink = true
 
 func update_color():
 	if is_it:
@@ -127,70 +123,79 @@ func dash():
 	velocity = dashDir * dashSpeed * 0.75	
 	if Input.is_action_pressed(up_action):
 		velocity.y -= 200
-	
-	#print(dashDir)
 
 func movement(delta):
 	var direction := Input.get_axis(left_action, right_action)
 	if direction:
 		if velocity.x < 500 and velocity.x > -500:
 			velocity.x += direction * 1200 * delta
-			
-func swapEXE(delta):
-	swapCD -= delta
-	if(swapCD > 0 || !Input.is_action_pressed(power_action)):
-		return
-	closest = game.players[0]
-	for player in game.players:
-		if abs(player.position.x - position.x) < abs(closest.position.x - position.x) || abs(-player.position.y + position.y) < abs(-closest.position.y + position.y):
-			if player.player_id != 1:
-				closest = player
-	var temp = closest.position
-	var temp2 = position
-	
-	tag_cooldown_timer = .1
-	
-	closest.position = temp2
-	position = temp
-	swapCD = 1
-	
-	
 
-func timeSlowEXE(delta):
-	if(timeSlowDuration > 0):
-		for player in game.players:
-			player.speedLimitX = 400
-			player.negSpeedLimitX = -400
-			player.negSpeedLimitY = -400
-			player.speedLimitY = 400
-		timeSlowDuration -= delta
-	speedLimitX = 800
-	negSpeedLimitX = -800
-	negSpeedLimitY = -800
-	speedLimitY = 800
-	if(timeSlowDuration <= 0):
-		for player in game.players:
-			player.speedLimitX = 800
-			player.negSpeedLimitX = -800
-			player.negSpeedLimitY = -800
-			player.speedLimitY = 800
-		timeSlowCD -= delta
-	if(!Input.is_action_pressed(power_action) || timeSlowCD > 0):
+func blinkEXE(delta):
+	blinkCD -= delta
+	
+	if (!Input.is_action_just_pressed(power_action) and blinking == false):
 		return
-	timeSlowCD = 0.1
-	timeSlowDuration = 2
-
-
-func blinkEXE():
-	if !Input.is_action_pressed(power_action):
-		return
-	var blinkDir = Input.get_vector(left_action, right_action, up_action, down_action)
-	blinkDir = blinkDir.normalized()
-	blinkCD = 10
-	position += blinkDir * 150
-	if position.x > 2250 || position.x < 50 || position.y > -50 || position.y < -1250:
-		position -= blinkDir * 150
-		blinkCD = 0
+	blinking = true
+	if(blinkAnimationSegment == 10 && blinkCD <= 0):
+		var blinkDir = Input.get_vector(left_action, right_action, up_action, down_action)
+		blinkDir = blinkDir.normalized()
+		position += blinkDir * 150
+		if position.x > 2250 || position.x < 50 || position.y > -50 || position.y < -1250:
+			position -= blinkDir * 150
+			blinkCD = 0
+	elif(blinkAnimationSegment < 10 && blinkCD <= 0):
+		#scale.x -= 0.075
+		#scale.y -= 0.075
+		if player_id == 0:
+			get_node("RedNotIt").scale.x -= 0.096
+			get_node("RedIt").scale.x -= 0.096
+			get_node("RedNotIt").scale.y -= 0.096
+			get_node("RedIt").scale.y -= 0.096
+		if player_id == 1:
+			get_node("BlueNotIt").scale.x -= 0.096
+			get_node("BlueIt").scale.x -= 0.096
+			get_node("BlueNotIt").scale.y -= 0.096
+			get_node("BlueIt").scale.y -= 0.096
+		if player_id == 2:
+			get_node("GreenNotIt").scale.x -= 0.096
+			get_node("GreenIt").scale.x -= 0.096
+			get_node("GreenNotIt").scale.y -= 0.096
+			get_node("GreenIt").scale.y -= 0.096
+		if player_id == 3:
+			get_node("YellowNotIt").scale.x -= 0.096
+			get_node("YellowIt").scale.x -= 0.096
+			get_node("YellowNotIt").scale.y -= 0.096
+			get_node("YellowIt").scale.y -= 0.096
+	elif(blinkAnimationSegment < 16 and blinkCD <= 0):
+		#scale.x += 0.075
+		#scale.y += 0.075
+		if player_id == 0:
+			get_node("RedNotIt").scale.x += 0.096
+			get_node("RedIt").scale.x += 0.096
+			get_node("RedNotIt").scale.y += 0.096
+			get_node("RedIt").scale.y += 0.096
+		if player_id == 1:
+			get_node("BlueNotIt").scale.x += 0.096
+			get_node("BlueIt").scale.x += 0.096
+			get_node("BlueNotIt").scale.y += 0.096
+			get_node("BlueIt").scale.y += 0.096
+		if player_id == 2:
+			get_node("GreenNotIt").scale.x += 0.096
+			get_node("GreenIt").scale.x += 0.096
+			get_node("GreenNotIt").scale.y += 0.096
+			get_node("GreenIt").scale.y += 0.096
+		if player_id == 3:
+			get_node("YellowNotIt").scale.x += 0.096
+			get_node("YellowIt").scale.x += 0.096
+			get_node("YellowNotIt").scale.y += 0.096
+			get_node("YellowIt").scale.y += 0.096
+	else:
+		if blinkCD <= 0:
+			blinkCD = 10
+		blinking = false
+		blinkAnimationSegment = -1
+	blinkAnimationSegment += 1
+	
 
 func jump():
 	if Input.is_action_just_pressed(jump_action) and not isDashing and (is_on_floor() or coyoteTime > 0):
@@ -241,7 +246,204 @@ func speedFallOff(delta):
 	else:
 		velocity.x -= deltaSpeedX / 1.05 * delta
 
+func animate():
+	#print(animationSegment)
+	#print(scale.x)
+	#print(scale.y)
+	if player_id == 0:
+		if(is_on_floor()):
+			if(inAir):
+				animationSegment = 7
+			if(animationSegment > 0 and get_node("RedNotIt").position.y < 2.31 and get_node("RedNotIt").scale.y > 0.771):
+				get_node("RedNotIt").position.y += 0.33
+				get_node("RedIt").position.y += 0.33
+				get_node("RedNotIt").scale.y -= 0.027
+				get_node("RedIt").scale.y -= 0.027
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = false
+		else:
+			if(inAir == false):
+				animationSegment = 10
+			if(animationSegment > 0 and get_node("RedNotIt").scale.x > 0.695):
+				get_node("RedNotIt").scale.x -= 0.0265
+				get_node("RedIt").scale.x -= 0.0265
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = true
+			
+		if(animationSegment == 0):
+			if(get_node("RedNotIt").position.y > 0):
+				get_node("RedNotIt").position.y -= 0.33
+				get_node("RedIt").position.y -= 0.33
+			if(get_node("RedNotIt").scale.y < 0.96):
+				get_node("RedNotIt").scale.y += 0.027
+				get_node("RedIt").scale.y += 0.027
+			if(get_node("RedNotIt").scale.x < 0.96):
+				get_node("RedNotIt").scale.x += 0.0265
+				get_node("RedIt").scale.x += 0.0265
+				
+	if player_id == 1:
+		if(is_on_floor()):
+			if(inAir):
+				animationSegment = 7
+			if(animationSegment > 0 and get_node("BlueNotIt").position.y < 2.31 and get_node("BlueNotIt").scale.y > 0.771):
+				get_node("BlueNotIt").position.y += 0.33
+				get_node("BlueIt").position.y += 0.33
+				get_node("BlueNotIt").scale.y -= 0.027
+				get_node("BlueIt").scale.y -= 0.027
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = false
+		else:
+			if(inAir == false):
+				animationSegment = 10
+			if(animationSegment > 0 and get_node("BlueNotIt").scale.x > 0.695):
+				get_node("BlueNotIt").scale.x -= 0.0265
+				get_node("BlueIt").scale.x -= 0.0265
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = true
+			
+		if(animationSegment == 0):
+			if(get_node("BlueNotIt").position.y > 0):
+				get_node("BlueNotIt").position.y -= 0.33
+				get_node("BlueIt").position.y -= 0.33
+			if(get_node("BlueNotIt").scale.y < 0.96):
+				get_node("BlueNotIt").scale.y += 0.027
+				get_node("BlueIt").scale.y += 0.027
+			if(get_node("BlueNotIt").scale.x < 0.96):
+				get_node("BlueNotIt").scale.x += 0.0265
+				get_node("BlueIt").scale.x += 0.0265
+				
+	if player_id == 2:
+		if(is_on_floor()):
+			if(inAir):
+				animationSegment = 7
+			if(animationSegment > 0 and get_node("GreenNotIt").position.y < 2.31 and get_node("GreenNotIt").scale.y > 0.771):
+				get_node("GreenNotIt").position.y += 0.33
+				get_node("GreenIt").position.y += 0.33
+				get_node("GreenNotIt").scale.y -= 0.027
+				get_node("GreenIt").scale.y -= 0.027
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = false
+		else:
+			if(inAir == false):
+				animationSegment = 10
+			if(animationSegment > 0 and get_node("GreenNotIt").scale.x > 0.695):
+				get_node("GreenNotIt").scale.x -= 0.0265
+				get_node("GreenIt").scale.x -= 0.0265
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = true
+			
+		if(animationSegment == 0):
+			if(get_node("GreenNotIt").position.y > 0):
+				get_node("GreenNotIt").position.y -= 0.33
+				get_node("GreenIt").position.y -= 0.33
+			if(get_node("GreenNotIt").scale.y < 0.96):
+				get_node("GreenNotIt").scale.y += 0.027
+				get_node("GreenIt").scale.y += 0.027
+			if(get_node("GreenNotIt").scale.x < 0.96):
+				get_node("GreenNotIt").scale.x += 0.0265
+				get_node("GreenIt").scale.x += 0.0265
+		
+	if player_id == 3:
+		if(is_on_floor()):
+			if(inAir):
+				animationSegment = 7
+			if(animationSegment > 0 and get_node("YellowNotIt").position.y < 2.31 and get_node("YellowNotIt").scale.y > 0.771):
+				get_node("YellowNotIt").position.y += 0.33
+				get_node("YellowIt").position.y += 0.33
+				get_node("YellowNotIt").scale.y -= 0.027
+				get_node("YellowIt").scale.y -= 0.027
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = false
+		else:
+			if(inAir == false):
+				animationSegment = 10
+			if(animationSegment > 0 and get_node("YellowNotIt").scale.x > 0.695):
+				get_node("YellowNotIt").scale.x -= 0.0265
+				get_node("YellowIt").scale.x -= 0.0265
+			if(animationSegment > 0):
+				animationSegment -= 1
+			inAir = true
+			
+		if(animationSegment == 0):
+			if(get_node("YellowNotIt").position.y > 0):
+				get_node("YellowNotIt").position.y -= 0.33
+				get_node("YellowIt").position.y -= 0.33
+			if(get_node("YellowNotIt").scale.y < 0.96):
+				get_node("YellowNotIt").scale.y += 0.027
+				get_node("YellowIt").scale.y += 0.027
+			if(get_node("YellowNotIt").scale.x < 0.96):
+				get_node("YellowNotIt").scale.x += 0.0265
+				get_node("YellowIt").scale.x += 0.0265
+
+
+
+func menuFunctionality():
+	# Checks if Start has been pressed in Menu and if the time in the game is up.
+	if !get_parent().get_node("Menu").visible:
+		visible = true
+	if get_parent().get_node("Menu").visible:
+		visible = false
+
+		if(player_id == 0):
+			position.x = 268
+			position.y = -1056
+		if(player_id == 1):
+			position.x = 2057
+			position.y = -1219
+		if(player_id == 2):
+			position.x = 2057
+			position.y = -70
+		if(player_id == 3):
+			position.x = 268
+			position.y = -70
+		velocity.x = 0
+		velocity.y = 0
+		blinkCD = 0
+		return
+	if get_parent().get_node("GameTimeLabel").hasStarted == true && get_parent().get_node("GameTimeLabel").text == "0":
+		return
+		
+func checkPlayerIn():
+	if player_id == 0 and get_parent().get_node("Menu").get_child(4).P1Joined != true:
+		set_physics_process(false)
+		position.x = -100
+		position.y = -100
+	if player_id == 1 and get_parent().get_node("Menu").get_child(4).P2Joined != true:
+		set_physics_process(false)
+		position.x = -100
+		position.y = -100
+	if player_id == 2 and get_parent().get_node("Menu").get_child(4).P3Joined != true:
+		set_physics_process(false)
+		position.x = -100
+		position.y = -100
+	if player_id == 3 and get_parent().get_node("Menu").get_child(4).P4Joined != true:
+		set_physics_process(false)
+		position.x = -100
+		position.y = -100
+	
+	if player_id == 0 and get_parent().get_node("Menu").get_child(4).P1Joined == true:
+		set_physics_process(true)
+	if player_id == 1 and get_parent().get_node("Menu").get_child(4).P2Joined == true:
+		set_physics_process(true)
+	if player_id == 2 and get_parent().get_node("Menu").get_child(4).P3Joined == true:
+		set_physics_process(true)
+	if player_id == 3 and get_parent().get_node("Menu").get_child(4).P4Joined == true:
+		set_physics_process(true)
+
+func _process(_delta: float) -> void:
+	checkPlayerIn()
+
 func _physics_process(delta: float) -> void:
+	menuFunctionality()
+	
+	
 	# Functionality of the speed limits in any direction
 	if velocity.x > speedLimitX:
 		velocity.x = speedLimitX
@@ -253,10 +455,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = negSpeedLimitY
 	
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not blinking:
 		velocity += get_gravity()*1.25 * delta*2
 		coyoteTime -= delta
-		
+	
 	if is_on_floor():
 		coyoteTime = 0.1
 	if is_on_wall_only():
@@ -272,14 +474,7 @@ func _physics_process(delta: float) -> void:
 		dash()
 	
 	if blink:
-		if blinkCD <= 0:
-			blinkEXE()
-		blinkCD -= delta
-	if timeSlow:
-		timeSlowEXE(delta)
-	if swap:
-		swapEXE(delta)
-		
+		blinkEXE(delta)
 	
 	# Allows for wavedashing and adjusts movement speed while dashing
 	if isDashing:
@@ -325,7 +520,7 @@ func _physics_process(delta: float) -> void:
 	if is_it and tag_cooldown_timer > 0:
 		tag_cooldown_timer = max(tag_cooldown_timer - delta, 0)
 		if cooldown_label:
-			cooldown_label.text = str(snapped(tag_cooldown_timer, 0.1))
+			cooldown_label.text = str(snapped(tag_cooldown_timer, 1))
 			cooldown_label.visible = true
 	else:
 		if cooldown_label:
@@ -337,3 +532,4 @@ func _physics_process(delta: float) -> void:
 	movement(delta)
 	speedFallOff(delta)
 	move_and_slide()
+	animate()

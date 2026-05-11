@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://xr74mhk1b3w2"]
+
+[sub_resource type="Animation" id="Animation_nkmq8"]
+resource_name = "Move"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(256, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_87ub3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7xies"]
+_data = {
+&"Move": SubResource("Animation_nkmq8"),
+&"RESET": SubResource("Animation_87ub3")
+}
+
+[node name="Map1" type="Node2D" unique_id=1284509674]
+
+[node name="Platform" type="StaticBody2D" parent="." unique_id=1378588205]
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform" unique_id=1636076929]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -128, 0, -96, -128, -96, -128, -128)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform" unique_id=373622915]
+polygon = PackedVector2Array(0, -96, 0, -128, -128, -128, -128, -96)
+
+[node name="JumpPlatform" type="StaticBody2D" parent="." unique_id=672697432]
+
+[node name="Polygon2D" type="Polygon2D" parent="JumpPlatform" unique_id=1923580510]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 320, 0, 320, -32, 128, -32, 128, -96, 128, -128, 32, -128, 0, -128, 0, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="JumpPlatform" unique_id=1432470924]
+polygon = PackedVector2Array(0, 0, 0, -128, 128, -128, 128, -32, 320, -32, 320, 0)
+
+[node name="SpeedPad" type="StaticBody2D" parent="." unique_id=366216807]
+
+[node name="Polygon2D" type="Polygon2D" parent="SpeedPad" unique_id=98025036]
+color = Color(0.7465733, 0.4505278, 0.050470345, 1)
+polygon = PackedVector2Array(320, 0, 832, 0, 832, -32, 320, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpeedPad" unique_id=2030152855]
+polygon = PackedVector2Array(320, 0, 320, -32, 832, -32, 832, 0)
+
+[node name="JumpPad" type="StaticBody2D" parent="." unique_id=258311721]
+
+[node name="Polygon2D" type="Polygon2D" parent="JumpPad" unique_id=1925677078]
+position = Vector2(64, 0)
+color = Color(0.09411765, 1, 1, 1)
+polygon = PackedVector2Array(-192, -96, -320, -96, -320, -128, -192, -128)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="JumpPad" unique_id=1056581455]
+position = Vector2(64, 0)
+polygon = PackedVector2Array(-192, -96, -192, -128, -320, -128, -320, -96)
+
+[node name="TopPlatform" type="StaticBody2D" parent="." unique_id=3312669]
+
+[node name="Polygon2D" type="Polygon2D" parent="TopPlatform" unique_id=2025645246]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-128, -352, -128, -320, 0, -320, 0, -352)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopPlatform" unique_id=2057665941]
+polygon = PackedVector2Array(-128, -352, -128, -320, 0, -320, 0, -352)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="." unique_id=1116468293]
+
+[node name="Polygon2D" type="Polygon2D" parent="AnimatableBody2D" unique_id=1803643344]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -352, 128, -352, 128, -320, 0, -320)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AnimatableBody2D" unique_id=1704659776]
+polygon = PackedVector2Array(0, -352, 128, -352, 128, -320, 0, -320)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody2D" unique_id=1643702266]
+libraries/ = SubResource("AnimationLibrary_7xies")
+autoplay = &"Move"
+
+[node name="Platform2" type="StaticBody2D" parent="." unique_id=241410864]
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform2" unique_id=1786883440]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(832, -32, 2432, -32, 2432, 0, 832, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform2" unique_id=1833822231]
+polygon = PackedVector2Array(832, -32, 832, 0, 2432, 0, 2432, -32)
+
+[node name="Platform3" type="StaticBody2D" parent="." unique_id=399542248]
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform3" unique_id=558924246]
+position = Vector2(-1856, 0)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(256, -32, 978.0259, -32, 1856, -32, 1856, 0, 256, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform3" unique_id=820172155]
+position = Vector2(-1856, 0)
+polygon = PackedVector2Array(256, -32, 256, 0, 1856, 0, 1856, -32)
+
+[node name="Platform4" type="StaticBody2D" parent="." unique_id=1543397614]
+
+[node name="Polygon2D" type="Polygon2D" parent="Platform4" unique_id=1042418671]
+position = Vector2(832, -64)
+color = Color(0.103743605, 0.103743516, 0.103743516, 1)
+polygon = PackedVector2Array(1600, -96, -320, -96, -320, -128, 1600, -128)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Platform4" unique_id=1404200304]
+position = Vector2(832, -64)
+polygon = PackedVector2Array(1600, -96, 1600, -128, -320, -128, -320, -96)
+one_way_collision = true
+
+[node name="WallL" type="StaticBody2D" parent="." unique_id=1454293792]
+
+[node name="Polygon2D" type="Polygon2D" parent="WallL" unique_id=1864178470]
+polygon = PackedVector2Array(-1600, -32, -1600, -256, -1560, -256, -1560, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WallL" unique_id=583402181]
+polygon = PackedVector2Array(-1600, -32, -1600, -256, -1560, -256, -1560, -32)
+
+[node name="WallL2" type="StaticBody2D" parent="." unique_id=982207291]
+position = Vector2(-224, -120)
+
+[node name="Polygon2D" type="Polygon2D" parent="WallL2" unique_id=1236543105]
+polygon = PackedVector2Array(-1600, -32, -1600, -256, -1560, -256, -1560, -32)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WallL2" unique_id=711922381]
+position = Vector2(4216, 120)
+polygon = PackedVector2Array(-1600, -32, -1600, -520, -1560, -520, -1560, -32)

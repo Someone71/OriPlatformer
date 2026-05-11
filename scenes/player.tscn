@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://btt6tuilvdn51"]
+
+[ext_resource type="Script" uid="uid://df3d5spv6wws8" path="res://Scripts/character_body_2d.gd" id="1_g2els"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
+size = Vector2(96, 96)
+
+[node name="Player" type="CharacterBody2D" unique_id=416001974]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_g2els")
+
+[node name="CooldownLabel" type="Label" parent="." unique_id=938405187]
+z_index = 1
+offset_left = -53.333336
+offset_top = -116.0
+offset_right = 52.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1281205257]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1656563993]
+position = Vector2(3.8146973e-06, 3.8146973e-06)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1320431940]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_3vyb7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

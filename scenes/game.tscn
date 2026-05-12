@@ -199,7 +199,7 @@ script = ExtResource("13_kvuet")
 
 [node name="TagBackgroundBubbles" type="Sprite2D" parent="." unique_id=1827322746]
 z_index = -19
-position = Vector2(1640.0001, -680)
+position = Vector2(1468, -694)
 scale = Vector2(1.5262346, 1.5262346)
 texture = ExtResource("14_ir15t")
 script = SubResource("GDScript_gxtfn")
@@ -385,9 +385,9 @@ z_index = 11
 texture_filter = 1
 layout_mode = 0
 offset_left = 346.0
-offset_top = -10.0
+offset_top = -8.0
 offset_right = 606.0
-offset_bottom = 250.0
+offset_bottom = 252.0
 texture = ExtResource("22_e1j6l")
 
 [node name="SadBoy" type="Sprite2D" parent="Menu/JoinPanel/P2Join" unique_id=267162845]

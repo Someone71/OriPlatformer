@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://btt6tuilvdn51"]
 
 [ext_resource type="Script" uid="uid://df3d5spv6wws8" path="res://Scripts/character_body_2d.gd" id="1_g2els"]
-[ext_resource type="FontFile" uid="uid://h7wn6ai5u1sj" path="res://Assets/oldbitz-font/OldbitzDemo-8OmwJ.ttf" id="2_g2els"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(66.666664, 66.666664)
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
+radius = 128.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(96, 96)
@@ -13,23 +12,10 @@ size = Vector2(96, 96)
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_g2els")
 
-[node name="CooldownLabel" type="Label" parent="." unique_id=938405187]
-z_index = 1
-offset_left = -53.333336
-offset_top = -116.0
-offset_right = 52.0
-offset_bottom = 23.0
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("2_g2els")
-theme_override_font_sizes/font_size = 50
-horizontal_alignment = 1
-
 [node name="Area2D" type="Area2D" parent="." unique_id=1281205257]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1656563993]
-position = Vector2(7.549922e-07, 7.549922e-07)
-scale = Vector2(0.8000001, 0.8000001)
-shape = SubResource("RectangleShape2D_g2els")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1241661672]
+shape = SubResource("CircleShape2D_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1320431940]
 scale = Vector2(0.5, 0.5)

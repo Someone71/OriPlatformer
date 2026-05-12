@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qnb83"]
 
-[node name="Game" type="Node2D" unique_id=355319260]
+[node name="OriGame" type="Node2D" unique_id=355319260]
 script = ExtResource("1_iywne")
 
 [node name="TileMapLayer" parent="." unique_id=1526308851 instance=ExtResource("1_lbhrr")]

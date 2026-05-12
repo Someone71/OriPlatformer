@@ -36,6 +36,8 @@
 [ext_resource type="FontFile" uid="uid://cimknnp0w8uh8" path="res://Assets/oldbitz-font/OldbitzDemo-BLl98.otf" id="26_twgab"]
 [ext_resource type="Texture2D" uid="uid://dltopcef44ucs" path="res://Assets/Art/ArrowHovered.png" id="26_v2yb1"]
 [ext_resource type="Script" uid="uid://bax6ri4x0fonf" path="res://Scripts/right_arrow.gd" id="28_wljb1"]
+[ext_resource type="Script" uid="uid://by7g2apx0lftl" path="res://scenes/hondurian_impala.gd" id="37_nepv3"]
+[ext_resource type="Texture2D" uid="uid://7wlkipfudj12" path="res://icon.svg" id="38_7025r"]
 
 [sub_resource type="GDScript" id="GDScript_gxtfn"]
 resource_name = "BlackgroundMoving"
@@ -66,6 +68,9 @@ func _process(delta: float) -> void:
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sww3w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qnb83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m4url"]
+size = Vector2(16, 16)
 
 [node name="OriGame" type="Node2D" unique_id=355319260]
 script = ExtResource("1_iywne")
@@ -154,6 +159,8 @@ texture_filter = 1
 position = Vector2(-8.106232e-06, -2.3841858e-07)
 scale = Vector2(0.9600001, 0.96000004)
 texture = ExtResource("10_trtic")
+
+[node name="CamelBall" type="AnimatedSprite2D" parent="Player3" unique_id=1309616255]
 
 [node name="Player4" parent="." unique_id=901927822 instance=ExtResource("1_uwrxv")]
 position = Vector2(268, -70)
@@ -424,6 +431,18 @@ texture = ExtResource("23_pl11u")
 position = Vector2(129.99997, 130.00002)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("8_kvpfn")
+
+[node name="HondurianImpala" type="Area2D" parent="." unique_id=861632423]
+script = ExtResource("37_nepv3")
+
+[node name="Sprite2D" type="Sprite2D" parent="HondurianImpala" unique_id=1599062037]
+position = Vector2(94, -50)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("38_7025r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HondurianImpala" unique_id=1635425255]
+position = Vector2(94, -50)
+shape = SubResource("RectangleShape2D_m4url")
 
 [connection signal="timeout" from="GameTimeLabel/GameTimer" to="GameTimeLabel" method="_on_game_timer_timeout"]
 [connection signal="pressed" from="Menu/SettingsButton" to="Menu/SettingsButton" method="_on_pressed"]
